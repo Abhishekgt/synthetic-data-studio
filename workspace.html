@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EY | Synthetic Data Studio — Workspace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="app dark">
+  <header class="navbar">
+    <button id="hamburger2" class="btn icon-btn" aria-label="Toggle sidebar">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+    </button>
+    <div class="brand">EY <span class="muted">| Synthetic Data Studio</span></div>
+    <div class="nav-search">
+      <input id="workspaceSearch" placeholder="Search fields, generators, mappings..." />
+      <button class="btn">Search</button>
+    </div>
+    <nav class="nav-actions">
+      <a href="documentation.html" class="nav-link">Documentation</a>
+      <button id="btnNotifications2" class="icon-btn" title="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2zM18 16v-5a6 6 0 0 0-5-5.92V4a1 1 0 1 0-2 0v1.08A6 6 0 0 0 6 11v5l-2 2v1h16v-1z"/></svg>
+      </button>
+      <div class="profile">
+        <img src="data:," alt="profile" class="avatar" />
+        <div class="profile-name">Abhishekgt</div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar2" class="sidebar collapsed">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html">Dashboard</a></li>
+        <li class="nav-item active"><a href="workspace.html">Projects</a></li>
+        <li class="nav-item"><a href="#">Templates</a></li>
+        <li class="nav-item"><a href="history.html">History</a></li>
+        <li class="nav-item"><a href="documentation.html">Documentation</a></li>
+        <li class="nav-item"><a href="#">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="main workspace-main">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <button id="saveBtn" class="btn">Save</button>
+          <button id="validateBtn" class="btn">Validate</button>
+          <button id="generateBtn" class="btn primary">Generate</button>
+          <div class="divider"></div>
+          <button id="exportBtn" class="btn">Export</button>
+          <a href="documentation.html" class="btn">Documentation</a>
+        </div>
+        <div class="toolbar-right">
+          <div class="small muted">Project: <strong>Customer 360 — Migration</strong></div>
+        </div>
+      </div>
+
+      <section class="grid workspace-grid">
+        <!-- Upload Datasets -->
+        <div class="card upload-card">
+          <h3>Upload Datasets</h3>
+          <div id="dropArea" class="drop-area">
+            <p>Drag & drop CSV/Excel files here or <label for="fileInput" class="link">browse</label></p>
+            <input type="file" id="fileInput" multiple style="display:none" />
+          </div>
+          <div id="fileList" class="file-list"></div>
+        </div>
+
+        <!-- Metadata Explorer -->
+        <div class="card meta-card">
+          <div class="card-header">
+            <h3>Metadata Explorer</h3>
+            <div class="card-controls">
+              <input id="metaSearch" placeholder="Search fields..." />
+              <select id="generatorFilter">
+                <option value="">All Generators</option>
+                <option>GUID</option>
+                <option>Integer</option>
+                <option>Name</option>
+                <option>Country</option>
+                <option>Date</option>
+                <option>Custom SAP ID</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table id="metaTable" class="table editable">
+              <thead>
+                <tr>
+                  <th>Field Name</th>
+                  <th>Source Type</th>
+                  <th>Business Meaning</th>
+                  <th>Synthetic Generator</th>
+                  <th>SAP Mapping</th>
+                  <th>Rule</th>
+                  <th>Null %</th>
+                  <th>Duplicate %</th>
+                  <th>Preview</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- populated by workspace.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Relationship Manager -->
+        <div class="card relations-card">
+          <div class="card-header">
+            <h3>Relationship Manager</h3>
+            <div>
+              <button id="addRelation" class="btn">Add Relationship</button>
+              <button id="autoDetect" class="btn">Auto Detect</button>
+            </div>
+          </div>
+          <div id="relationCanvas" class="relation-canvas">
+            <!-- simple SVG diagram -->
+            <svg id="relationSvg" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet"></svg>
+          </div>
+        </div>
+
+        <!-- Metadata Enrichment -->
+        <div class="card enrichment-card">
+          <h3>Metadata Enrichment</h3>
+          <table id="enrichTable" class="table">
+            <thead><tr><th>Source Field</th><th>SAP Object</th><th>Description</th><th>Suggested Generator</th><th>Confidence %</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Key Mapping Repository -->
+        <div class="card keys-card">
+          <div class="card-header">
+            <h3>Key Mapping Repository</h3>
+            <div>
+              <input id="keySearch" placeholder="Search keys..." />
+              <button id="downloadKeyMap" class="btn">Download</button>
+            </div>
+          </div>
+          <table id="keyMapTable" class="table">
+            <thead><tr><th>Original Key</th><th>Synthetic Key</th><th>Used In Dataset</th><th>Referenced Count</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Generation Settings -->
+        <div class="card settings-card">
+          <h3>Generation Settings</h3>
+          <div class="settings-grid">
+            <label>Locale
+              <select id="locale"><option>en_US</option><option>de_DE</option><option>en_GB</option></select>
+            </label>
+            <label>Output Format
+              <select id="outputFormat"><option>CSV</option><option>JSON</option><option>SQL</option><option>Excel</option></select>
+            </label>
+            <label>Privacy Mode
+              <select id="privacyMode"><option>Standard</option><option>High</option></select>
+            </label>
+            <label>Seed Value
+              <input id="seed" type="number" value="42" />
+            </label>
+            <label>Duplicate %
+              <input id="dupPct" type="number" min="0" max="100" value="0" />
+            </label>
+            <label>Null %
+              <input id="nullPct" type="number" min="0" max="100" value="0" />
+            </label>
+            <label>Maintain Referential Integrity
+              <input id="maintainRef" type="checkbox" checked />
+            </label>
+            <label>Threads
+              <input id="threads" type="number" min="1" max="8" value="2" />
+            </label>
+          </div>
+        </div>
+
+        <!-- Preview / Validation -->
+        <div class="card preview-card" style="grid-column:1 / -1;">
+          <div class="card-header">
+            <h3>Preview</h3>
+            <div class="card-controls">
+              <input id="previewSearch" placeholder="Search preview..." />
+              <select id="rowsPerPage"><option>10</option><option>25</option><option>50</option><option>100</option><option>500</option></select>
+              <button id="downloadPreview" class="btn">Download Preview</button>
+            </div>
+          </div>
+
+          <div class="preview-area">
+            <table id="previewTable" class="table preview">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <div class="validation-cards">
+            <div class="card small">
+              <div class="muted">Schema Match %</div>
+              <div id="schemaMatch" class="large-val">0%</div>
+            </div>
+            <div class="card small">
+              <div class="muted">Relationship Integrity %</div>
+              <div id="relIntegrity" class="large-val">0%</div>
+            </div>
+            <div class="card small">
+              <div class="muted">Privacy Risk</div>
+              <div id="privacyRisk" class="large-val">Low</div>
+            </div>
+            <div class="card small">
+              <div class="muted">Duplicate Keys</div>
+              <div id="dupKeys" class="large-val">0</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <div id="spinner" class="loading-spinner hidden"></div>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/workspace.js"></script>
+</body>
+</html>

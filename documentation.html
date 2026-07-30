@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EY | Synthetic Data Studio — Documentation</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="app dark">
+  <header class="navbar">
+    <button id="hamburger4" class="btn icon-btn" aria-label="Toggle sidebar">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+    </button>
+    <div class="brand">EY <span class="muted">| Synthetic Data Studio</span></div>
+    <div class="nav-search">
+      <input placeholder="Search docs..." />
+      <button class="btn">Search</button>
+    </div>
+    <nav class="nav-actions">
+      <div class="profile">
+        <img src="data:," alt="profile" class="avatar" />
+        <div class="profile-name">Abhishekgt</div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <ul class="doc-nav">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#enrichment">Metadata Enrichment</a></li>
+        <li><a href="#relationship">Relationship Preservation</a></li>
+        <li><a href="#pipeline">Generation Pipeline</a></li>
+        <li><a href="#sap">Supported SAP Objects</a></li>
+        <li><a href="#api">API Guide</a></li>
+        <li><a href="#release">Release Notes</a></li>
+      </ul>
+    </aside>
+
+    <main class="main docs-main">
+      <article class="card doc">
+        <h1 id="overview">Overview</h1>
+        <p>Synthetic Data Studio is an internal EY tool to create metadata-aware relational synthetic data for SAP migration projects. It preserves referential integrity across datasets and enforces mapping to SAP keys.</p>
+
+        <h2 id="architecture">Architecture</h2>
+        <p>Client-side prototype demonstrates the UX and client behaviors: dataset import, metadata mapping, relationship management, generation settings, preview, validation and export. Production systems would implement secure generation services and observability.</p>
+
+        <h2 id="enrichment">Metadata Enrichment</h2>
+        <p>Enrichment suggests generators based on source types and business meaning. Confidence scores indicate heuristic quality.</p>
+
+        <h2 id="relationship">Relationship Preservation</h2>
+        <p>The Relationship Manager ensures referential integrity: parent keys are synthesized and mapped consistently into child datasets. Cross-dataset key mapping repository stores canonical synthetic keys.</p>
+
+        <h2 id="pipeline">Generation Pipeline</h2>
+        <ol>
+          <li>Ingest source files, infer schema</li>
+          <li>Enrich metadata and assign generators</li>
+          <li>Validate schema and relationships</li>
+          <li>Generate synthetic data respecting key maps and cardinality</li>
+          <li>Export and deliver artifacts</li>
+        </ol>
+
+        <h2 id="sap">Supported SAP Objects</h2>
+        <p>Common fields and examples supported: KUNNR (Customer), VBELN (Sales Order), MATNR (Material), LAND1 (Country), ERDAT (Created Date), NAME1 (Name).</p>
+
+        <h2 id="api">API Guide</h2>
+        <p>This prototype includes "Export as REST" button which would in production provide endpoints to request generation and fetch results. See architectural notes for auth and rate limiting.</p>
+
+        <h2 id="release">Release Notes</h2>
+        <p>v0.1 — UX prototype demonstrating end-to-end client flows for SAP migration use cases.</p>
+
+      </article>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

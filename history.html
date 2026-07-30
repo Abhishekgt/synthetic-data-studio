@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EY | Synthetic Data Studio — History</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="app dark">
+  <header class="navbar">
+    <button id="hamburger3" class="btn icon-btn" aria-label="Toggle sidebar">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+    </button>
+    <div class="brand">EY <span class="muted">| Synthetic Data Studio</span></div>
+    <div class="nav-search">
+      <input id="historySearch" placeholder="Search runs..." />
+      <button class="btn">Search</button>
+    </div>
+    <nav class="nav-actions">
+      <a href="documentation.html" class="nav-link">Documentation</a>
+      <div class="profile">
+        <img src="data:," alt="profile" class="avatar" />
+        <div class="profile-name">Abhishekgt</div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar3" class="sidebar">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html">Dashboard</a></li>
+        <li class="nav-item"><a href="workspace.html">Projects</a></li>
+        <li class="nav-item"><a href="#">Templates</a></li>
+        <li class="nav-item active"><a href="history.html">History</a></li>
+        <li class="nav-item"><a href="documentation.html">Documentation</a></li>
+        <li class="nav-item"><a href="#">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <section class="card">
+        <div class="card-header">
+          <h3>Generation Runs</h3>
+          <div class="card-controls">
+            <select id="historyFilter">
+              <option value="">All Projects</option>
+            </select>
+            <button id="clearFilter" class="btn">Clear</button>
+          </div>
+        </div>
+
+        <table id="historyTable" class="table">
+          <thead><tr><th>Run ID</th><th>Project</th><th>Rows</th><th>Generated Time</th><th>Status</th><th>Download</th><th>Logs</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    // minimal history page script
+    const runs = [
+      {id:'R-2026-0001', project:'Customer 360', rows:10000, time:'2026-07-29 08:15', status:'Completed'},
+      {id:'R-2026-0002', project:'Vendor Migration', rows:25000, time:'2026-07-28 14:02', status:'Failed'},
+      {id:'R-2026-0003', project:'Sales Orders', rows:5000, time:'2026-07-27 09:45', status:'Completed'},
+    ];
+    const tbody = document.querySelector('#historyTable tbody');
+    runs.forEach(r=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${r.id}</td><td>${r.project}</td><td>${r.rows.toLocaleString()}</td><td>${r.time}</td><td>${r.status}</td>
+        <td><button class="btn" onclick="downloadRun('${r.id}')">Download</button></td>
+        <td><button class="btn" onclick="downloadLog('${r.id}')">Logs</button></td>`;
+      tbody.appendChild(tr);
+    });
+    function downloadRun(id){
+      alert('Download for ' + id + ' (mock)');
+    }
+    function downloadLog(id){
+      const blob = new Blob([`Log for ${id}\n2026-07-29 08:15 Generation started...\nCompleted.`], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = id + '.log'; a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

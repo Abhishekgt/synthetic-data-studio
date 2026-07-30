@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EY | Synthetic Data Studio — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="app dark">
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <button id="hamburger" class="btn icon-btn" aria-label="Toggle sidebar">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></svg>
+    </button>
+    <div class="brand">EY <span class="muted">| Synthetic Data Studio</span></div>
+    <div class="nav-search">
+      <input id="globalSearch" placeholder="Global search projects, templates, runs..." />
+      <button class="btn">Search</button>
+    </div>
+    <nav class="nav-actions">
+      <a href="documentation.html" class="nav-link">Documentation</a>
+      <button id="btnNotifications" class="icon-btn" title="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2zM18 16v-5a6 6 0 0 0-5-5.92V4a1 1 0 1 0-2 0v1.08A6 6 0 0 0 6 11v5l-2 2v1h16v-1z"/></svg>
+      </button>
+      <div class="profile">
+        <img src="data:, " alt="profile" class="avatar" />
+        <div class="profile-name">Abhishekgt</div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="nav-list">
+        <li class="nav-item active"><a href="index.html">Dashboard</a></li>
+        <li class="nav-item"><a href="workspace.html">Projects</a></li>
+        <li class="nav-item"><a href="workspace.html">Templates</a></li>
+        <li class="nav-item"><a href="history.html">History</a></li>
+        <li class="nav-item"><a href="documentation.html">Documentation</a></li>
+        <li class="nav-item"><a href="#">Settings</a></li>
+      </ul>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- Welcome -->
+      <section class="welcome-banner card">
+        <div>
+          <h1>Welcome back, Abhishek.</h1>
+          <p class="muted">Generate metadata-aware relational synthetic data preserving referential integrity across datasets.</p>
+        </div>
+        <div class="quick-actions">
+          <button id="createProject" class="btn primary">Create New Project</button>
+          <button id="importDataset" class="btn">Import Dataset</button>
+          <button id="openExisting" class="btn" onclick="location.href='workspace.html'">Open Existing Project</button>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="grid stats-grid">
+        <div class="card stat">
+          <div class="stat-title">Total Projects</div>
+          <div class="stat-value" data-target="24" id="totalProjects">0</div>
+        </div>
+        <div class="card stat">
+          <div class="stat-title">Generated Rows</div>
+          <div class="stat-value" data-target="1,234,567" id="generatedRows">0</div>
+        </div>
+        <div class="card stat">
+          <div class="stat-title">Synthetic Keys</div>
+          <div class="stat-value" data-target="18,934" id="syntheticKeys">0</div>
+        </div>
+        <div class="card stat">
+          <div class="stat-title">Exports</div>
+          <div class="stat-value" data-target="412" id="exports">0</div>
+        </div>
+      </section>
+
+      <!-- Recent Projects & Activity -->
+      <section class="grid main-grid">
+        <div class="card">
+          <div class="card-header">
+            <h3>Recent Projects</h3>
+            <input id="projectSearch" placeholder="Search projects..." />
+          </div>
+          <table class="table" id="projectsTable">
+            <thead>
+              <tr><th>Project Name</th><th>Created</th><th>Last Modified</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              <!-- populated by dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Recent Activity</h3>
+          <ul id="recentActivity" class="activity-list">
+            <!-- populated by dashboard.js -->
+          </ul>
+          <h3 style="margin-top:16px">Recent Runs</h3>
+          <div id="recentRuns" class="runs-list">
+            <!-- populated by dashboard.js -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
